@@ -8,7 +8,7 @@ from matplotlib.pyplot import savefig
 
 import json
 
-from envelope import Envelope
+from envelopes import Envelope
 
 BASEMAP = '../basemaps/ne_110m_admin_0_countries.shp'
 WORLDMAP = '../basemaps/ne_10m_admin_0_countries_lakes.shp'
@@ -22,14 +22,15 @@ def main():
 
 	# gets new country from command line
 	country_to_add = input('What country do you want to add?>')
-	#adds the new country to the list
+	# Adds the new country to the list
 	countries_read.append(country_to_add)
-	print("Making map")
-	#makes the map and stores the filename for emailing	
+	print("Making map...")
+	# Makes the map and stores the filename for emailing	
 	map_filepath = map_maker(countries_read) 
-	print("Map created! Sending as email")
-	#sends the email
+	print("Map created! Sending as email...")
+	# Sends the email
 	emailer(country_to_add, map_filepath)
+	print('Done!')
 
 
 def map_maker(countries_read):
@@ -124,16 +125,18 @@ def map_maker(countries_read):
 	with open('countries_read.json','w') as io:
 			json.dump(countries_read, io, sort_keys=True, indent=4)
 
-    return filename
+	return filename
 
 def emailer(country_to_add, map_filepath):
 	# message meta
-	from_addr = 'tybalt@mattallinson.com'
-	to_addr = 'mrallinson@gmail.com'
+	from_addr = ('tybalt@mattallinson.com', "Matt's friendly bot")
+	to_addr = ['mrallinson@gmail.com','tabathaleggett@gmail.com']
 	attachment = map_filepath
 	subject = 'Map update for: ' + country_to_add
 	text_body = country_to_add
-	password = input('Enter email password for tybalt@mattallinson.com>')
+
+	with open('credentials') as cred_file:
+		password = cred_file.read()
 
 	#create the email
 	envelope = Envelope(
@@ -146,7 +149,7 @@ def emailer(country_to_add, map_filepath):
 
 	#Send the email
 	envelope.send('mail.mattallinson.com',
-		login=from_addr,
+		login=from_addr[0],
 		password=password,
 		tls=True
 		)
