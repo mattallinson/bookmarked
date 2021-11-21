@@ -7,7 +7,6 @@ import geoplot.crs as gcrs
 from matplotlib.pyplot import savefig
 
 import json
-import sys
 
 from envelope import Envelope
 
@@ -16,20 +15,22 @@ WORLDMAP = '../basemaps/ne_10m_admin_0_countries_lakes.shp'
 
 def main():
 
+	print("Let's update the Bookmarked Map!")
 	#Reads file of all the previously read countries
 	with open('countries_read.json','r') as io:
 		countries_read = json.load(io)
 
 	# gets new country from command line
-	if len(sys.argv) > 1:
-		country_to_add = sys.argv[1]
-		#adds the new country to the list and saves it
-		countries_read.append(country_to_add)
-		
-	else:
-		print('Making list from file')
-		
-	map_maker(countries_read)
+	country_to_add = input('What country do you want to add?>')
+	#adds the new country to the list
+	countries_read.append(country_to_add)
+	print("Making map")
+	#makes the map and stores the filename for emailing	
+	map_filepath = map_maker(countries_read) 
+	print("Map created! Sending as email")
+	#sends the email
+	emailer(country_to_add, map_filepath)
+
 
 def map_maker(countries_read):
 	country_to_add = countries_read[-1]
@@ -42,7 +43,7 @@ def map_maker(countries_read):
 		[{'geometry':basemap.unary_union.envelope}], #clunky workaround for Sea 
 		crs='EPSG:4326')
 
-
+	#Checks for typos and throws exception if anything not working
 	if 	country_to_add not in world.index:
 		raise Exception('''Country not in World Index. 
 			Check spelling or add to countries_read.json manually''')
@@ -119,9 +120,36 @@ def map_maker(countries_read):
 	        pad_inches = 0,
 	       facecolor=bg_color)
 
-	# updates countries_read.json
+	# updates countries_read.json and saves it
 	with open('countries_read.json','w') as io:
 			json.dump(countries_read, io, sort_keys=True, indent=4)
+
+    return filename
+
+def emailer(country_to_add, map_filepath):
+	# message meta
+	from_addr = 'tybalt@mattallinson.com'
+	to_addr = 'mrallinson@gmail.com'
+	attachment = map_filepath
+	subject = 'Map update for: ' + country_to_add
+	text_body = country_to_add
+	password = input('Enter email password for tybalt@mattallinson.com>')
+
+	#create the email
+	envelope = Envelope(
+		from_addr=from_addr,
+		to_addr=to_addr,
+		subject=subject,
+		text_body=text_body
+		)
+	envelope.add_attachment(attachment)
+
+	#Send the email
+	envelope.send('mail.mattallinson.com',
+		login=from_addr,
+		password=password,
+		tls=True
+		)
 
 if __name__ == '__main__':
 	main()
