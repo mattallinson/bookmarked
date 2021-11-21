@@ -123,7 +123,9 @@ def map_maker(countries_read):
 
 	# updates countries_read.json and saves it
 	with open('countries_read.json','w') as io:
-			json.dump(countries_read, io, sort_keys=True, indent=4)
+			json.dump(list(set(countries_read)),
+				io, sort_keys=True, indent=4
+				)
 
 	return filename
 
