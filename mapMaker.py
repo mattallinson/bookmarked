@@ -131,7 +131,7 @@ def map_maker(countries_read):
 
 def emailer(country_to_add, map_filepath):
 	# message meta
-	from_addr = ('tybalt@mattallinson.com', "Matt's friendly bot")
+	from_addr = ('tybalt@mattallinson.com', "🤖 Friendly bot")
 	to_addr = ['mrallinson@gmail.com','tabathaleggett@gmail.com']
 	attachment = map_filepath
 	subject = 'Map update for: ' + country_to_add
