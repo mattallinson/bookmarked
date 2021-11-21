@@ -9,6 +9,8 @@ from matplotlib.pyplot import savefig
 import json
 import sys
 
+from envelope import Envelope
+
 BASEMAP = '../basemaps/ne_110m_admin_0_countries.shp'
 WORLDMAP = '../basemaps/ne_10m_admin_0_countries_lakes.shp'
 
