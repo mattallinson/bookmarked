@@ -4,7 +4,9 @@ This script creates the maps that appear on https://bookmarked.substack.com/abou
 It creates the map using geopandas and geoplot, and then emails it to Tabatha and Matt. 
 
 1) Clone the repo
-2) Create an environment called geopandas using the `environment.yml` file
-3) Create a file called `credentials` with the password for tybalt@mattallinson.com
-4) Add mapMaker.sh to an alias in `~/.bashrc`
-5) Enjoy
+2) Create a new **blank** environment called `geopandas`. Using conda environments doesn't work for some reason, probably geoplot's mad dependencies, so the following 2 modules need to be added manually:
+	2.1) Install geoplot using `conda install geoplot -c conda-forge` 
+	2.2) Install envelopes using `pip install envelopes` 
+5) Create a file called `credentials` with the password for tybalt@mattallinson.com
+6) Add mapMaker.sh to an alias in `~/.bashrc`
+7) Enjoy
