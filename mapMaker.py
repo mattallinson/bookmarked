@@ -25,8 +25,8 @@ def main():
 	# Adds the new country to the list
 	countries_read.append(country_to_add)
 	print("Making map...")
-	# Makes the map and stores the filename for emailing	
-	map_filepath = map_maker(countries_read) 
+	# Makes the map and stores the filename for emailing
+	map_filepath = map_maker(countries_read)
 	print("Map created! Sending as email...")
 	# Sends the email
 	emailer(country_to_add, map_filepath)
@@ -41,7 +41,7 @@ def map_maker(countries_read):
 	basemap = gpd.read_file(BASEMAP).set_index('ADMIN')
 	world = gpd.read_file(WORLDMAP).set_index('NAME_EN')
 	sea =gpd.GeoDataFrame(
-		[{'geometry':basemap.unary_union.envelope}], #clunky workaround for Sea 
+		[{'geometry':basemap.unary_union.envelope}], #clunky workaround for Sea
 		crs='EPSG:4326')
 
 	#Checks for typos and throws exception if anything not working
@@ -53,9 +53,9 @@ def map_maker(countries_read):
 	world['Read']=False
 	for country in countries_read:
 	    # sets read countries as read
-	    world.at[country, 'Read'] = True  
-	#make geoseries of countries read  
-	read_countries = world[world['Read']==True]  
+	    world.at[country, 'Read'] = True
+	#make geoseries of countries read
+	read_countries = world[world['Read']==True]
 
 	### MAKES DOTS FOR SMALL COUNTRIES
 	read_country_points = read_countries.copy(deep=True)
@@ -132,7 +132,9 @@ def map_maker(countries_read):
 def emailer(country_to_add, map_filepath):
 	# message meta
 	from_addr = ('tybalt@mattallinson.com', "🤖 Friendly bot")
-	to_addr = ['mrallinson@gmail.com','tabathaleggett@gmail.com']
+	to_addr = ['mrallinson@gmail.com',
+		#'tabathaleggett@gmail.com'
+		]
 	attachment = map_filepath
 	subject = 'Map update for: ' + country_to_add
 	text_body = country_to_add
