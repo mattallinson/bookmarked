@@ -5,8 +5,8 @@ It creates the map using geopandas and geoplot, and then emails it to Tabatha an
 
 1) Clone the repo
 2) Create a new **blank** environment called `geopandas`. Using conda environments doesn't work for some reason, probably geoplot's mad dependencies, so the following 2 modules need to be added manually:
-	2.1) Install geoplot using `conda install geoplot -c conda-forge` 
-	2.2) Install envelopes using `pip install envelopes` 
+	a) Install geoplot using `conda install geoplot -c conda-forge` 
+	b) Install envelopes using `pip install envelopes` 
 5) Create a file called `credentials` with the password for tybalt@mattallinson.com
 6) Add mapMaker.sh to an alias in `~/.bashrc`
 7) Enjoy
