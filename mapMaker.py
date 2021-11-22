@@ -10,8 +10,8 @@ import json
 
 from envelopes import Envelope
 
-BASEMAP = '../basemaps/ne_110m_admin_0_countries.shp'
-WORLDMAP = '../basemaps/ne_10m_admin_0_countries_lakes.shp'
+BASEMAP = './basemaps/ne_110m_admin_0_countries.shp'
+WORLDMAP = './basemaps/ne_10m_admin_0_countries_lakes.shp'
 
 def main():
 
