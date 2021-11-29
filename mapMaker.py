@@ -140,7 +140,7 @@ def emailer(country_to_add, map_filepath):
 	text_body = country_to_add
 
 	with open('credentials') as cred_file:
-		password = cred_file.read()
+		password = cred_file.read().strip()
 
 	#create the email
 	envelope = Envelope(

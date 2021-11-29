@@ -1,8 +1,13 @@
- #!/bin/bash
+#!/bin/bash
+CURRENTDATE=`date +"%Y-%m-%d %T"`
+
 git pull
 source activate geopandas
-cd ~/scripts/PythonScripts/map/book_project
 python -W ignore mapMaker.py
-git add *
-git commit -m "updates map with new country"
+
+echo "Adding map to github"
+git add map
+git add -u
+git commit -m "updates map with new country ${CURRENTDATE}"
 git push
+echo "Job complete"
