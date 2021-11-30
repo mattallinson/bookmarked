@@ -31,7 +31,7 @@ def main():
 	print("Making map...")
 	# Makes the map and stores the filename for emailing
 	map_filepath = map_maker(countries_read)
-	print("Map created! Sending as email...")
+	print("\tMap created!\nSending as email...")
 	# Sends the email
 	emailer(country_to_add, map_filepath)
 	print('\tDone!\n\n\n')
