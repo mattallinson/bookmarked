@@ -15,22 +15,26 @@ WORLDMAP = './basemaps/ne_10m_admin_0_countries_lakes.shp'
 
 def main():
 
-	print("Let's update the Bookmarked Map!")
+	print('''\n
+		################################
+		Let's update the Bookmarked Map!
+		################################
+		''')
 	#Reads file of all the previously read countries
 	with open('countries_read.json','r') as io:
 		countries_read = json.load(io)
 
 	# gets new country from command line
-	country_to_add = input('What country do you want to add?>')
+	country_to_add = input('\tWhich country do you want to add?> ')
 	# Adds the new country to the list
 	countries_read.append(country_to_add)
-	print("Making map...")
+	print("\tMaking map...")
 	# Makes the map and stores the filename for emailing
 	map_filepath = map_maker(countries_read)
-	print("Map created! Sending as email...")
+	print("\tMap created! Sending as email...")
 	# Sends the email
 	emailer(country_to_add, map_filepath)
-	print('Done!')
+	print('\tDone!')
 
 
 def map_maker(countries_read):
@@ -133,7 +137,7 @@ def emailer(country_to_add, map_filepath):
 	# message meta
 	from_addr = ('tybalt@mattallinson.com', "🤖 Friendly bot")
 	to_addr = ['mrallinson@gmail.com',
-		'tabathaleggett@gmail.com'
+		#'tabathaleggett@gmail.com'
 		]
 	attachment = map_filepath
 	subject = 'Map update for: ' + country_to_add
