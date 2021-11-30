@@ -25,16 +25,16 @@ def main():
 		countries_read = json.load(io)
 
 	# gets new country from command line
-	country_to_add = input('\tWhich country do you want to add?> ')
+	country_to_add = input('Which country do you want to add?> ')
 	# Adds the new country to the list
 	countries_read.append(country_to_add)
-	print("\tMaking map...")
+	print("Making map...")
 	# Makes the map and stores the filename for emailing
 	map_filepath = map_maker(countries_read)
-	print("\tMap created! Sending as email...")
+	print("Map created! Sending as email...")
 	# Sends the email
 	emailer(country_to_add, map_filepath)
-	print('\tDone!')
+	print('\tDone!\n\n\n')
 
 
 def map_maker(countries_read):
